@@ -1,0 +1,288 @@
+{
+    "title": "StorageManagementClient",
+    "description": "The Azure Storage Management API.",
+    "docsUrl": "",
+    "url": "https://api.apis.guru/v2/specs/azure.com/storage-blob/2018-07-01/swagger.json",
+    "envVars": {
+        "OAUTH_CLIENT_ID": {
+            "description": "OAuth Client ID"
+        },
+        "OAUTH_CLIENT_SECRET": {
+            "description": "OAuth Client Secret"
+        }
+    },
+    "credentials": {
+        "fields": {
+            "server": {
+                "label": "Server",
+                "viewClass": "SelectView",
+                "model": [
+                    "https://management.azure.com/",
+                    "--- Custom URL"
+                ],
+                "required": true
+            },
+            "otherServer": {
+                "label": "Custom Server URL",
+                "viewClass": "TextFieldView"
+            },
+            "azure_auth": {
+                "label": "Azure Active Directory OAuth2 Flow",
+                "viewClass": "OAuthFieldView"
+            }
+        },
+        "oauth2": {
+            "client_id": "{{OAUTH_CLIENT_ID}}",
+            "client_secret": "{{OAUTH_CLIENT_SECRET}}",
+            "auth_uri": "https://login.microsoftonline.com/common/oauth2/authorize"
+        }
+    },
+    "triggers": {
+        "startFlow": {
+            "main": "./lib/triggers/startFlow.js",
+            "type": "polling",
+            "title": "Start Flow",
+            "fields": {}
+        }
+    },
+    "actions": {
+        "BlobContainers_List": {
+            "main": "./lib/actions/BlobContainers_List.js",
+            "title": "Lists all containers and does not support a prefix like data plane. Also SRP today does not return continuation token.",
+            "description": "Lists all containers and does not support a prefix like data plane. Also SRP today does not return continuation token.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/BlobContainers_List.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "BlobContainers_Delete": {
+            "main": "./lib/actions/BlobContainers_Delete.js",
+            "title": "Deletes specified container under its account.",
+            "description": "Deletes specified container under its account.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/BlobContainers_Delete.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "BlobContainers_Get": {
+            "main": "./lib/actions/BlobContainers_Get.js",
+            "title": "Gets properties of a specified container. ",
+            "description": "Gets properties of a specified container. ",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/BlobContainers_Get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "BlobContainers_Update": {
+            "main": "./lib/actions/BlobContainers_Update.js",
+            "title": "Updates container properties as specified in request body. Properties not mentioned in the request will be unchanged. Update fails if the specified container doesn't already exist. ",
+            "description": "Updates container properties as specified in request body. Properties not mentioned in the request will be unchanged. Update fails if the specified container doesn't already exist. ",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/BlobContainers_Update.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "BlobContainers_Create": {
+            "main": "./lib/actions/BlobContainers_Create.js",
+            "title": "Creates a new container under the specified account as described by request body. The container resource includes metadata and properties for that container. It does not include a list of the blobs contained by the container. ",
+            "description": "Creates a new container under the specified account as described by request body. The container resource includes metadata and properties for that container. It does not include a list of the blobs contained by the container. ",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/BlobContainers_Create.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "BlobContainers_ClearLegalHold": {
+            "main": "./lib/actions/BlobContainers_ClearLegalHold.js",
+            "title": "Clears legal hold tags. Clearing the same or non-existent tag results in an idempotent operation. ClearLegalHold clears out only the specified tags in the request.",
+            "description": "Clears legal hold tags. Clearing the same or non-existent tag results in an idempotent operation. ClearLegalHold clears out only the specified tags in the request.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/BlobContainers_ClearLegalHold.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "BlobContainers_ExtendImmutabilityPolicy": {
+            "main": "./lib/actions/BlobContainers_ExtendImmutabilityPolicy.js",
+            "title": "Extends the immutabilityPeriodSinceCreationInDays of a locked immutabilityPolicy. The only action allowed on a Locked policy will be this action. ETag in If-Match is required for this operation.",
+            "description": "Extends the immutabilityPeriodSinceCreationInDays of a locked immutabilityPolicy. The only action allowed on a Locked policy will be this action. ETag in If-Match is required for this operation.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/BlobContainers_ExtendImmutabilityPolicy.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "BlobContainers_LockImmutabilityPolicy": {
+            "main": "./lib/actions/BlobContainers_LockImmutabilityPolicy.js",
+            "title": "Sets the ImmutabilityPolicy to Locked state. The only action allowed on a Locked policy is ExtendImmutabilityPolicy action. ETag in If-Match is required for this operation.",
+            "description": "Sets the ImmutabilityPolicy to Locked state. The only action allowed on a Locked policy is ExtendImmutabilityPolicy action. ETag in If-Match is required for this operation.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/BlobContainers_LockImmutabilityPolicy.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "BlobContainers_DeleteImmutabilityPolicy": {
+            "main": "./lib/actions/BlobContainers_DeleteImmutabilityPolicy.js",
+            "title": "Aborts an unlocked immutability policy. The response of delete has immutabilityPeriodSinceCreationInDays set to 0. ETag in If-Match is required for this operation. Deleting a locked immutability policy is not allowed, only way is to delete the container after deleting all blobs inside the container.",
+            "description": "Aborts an unlocked immutability policy. The response of delete has immutabilityPeriodSinceCreationInDays set to 0. ETag in If-Match is required for this operation. Deleting a locked immutability policy is not allowed, only way is to delete the container after deleting all blobs inside the container.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/BlobContainers_DeleteImmutabilityPolicy.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "BlobContainers_GetImmutabilityPolicy": {
+            "main": "./lib/actions/BlobContainers_GetImmutabilityPolicy.js",
+            "title": "Gets the existing immutability policy along with the corresponding ETag in response headers and body.",
+            "description": "Gets the existing immutability policy along with the corresponding ETag in response headers and body.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/BlobContainers_GetImmutabilityPolicy.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "BlobContainers_CreateOrUpdateImmutabilityPolicy": {
+            "main": "./lib/actions/BlobContainers_CreateOrUpdateImmutabilityPolicy.js",
+            "title": "Creates or updates an unlocked immutability policy. ETag in If-Match is honored if given but not required for this operation.",
+            "description": "Creates or updates an unlocked immutability policy. ETag in If-Match is honored if given but not required for this operation.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/BlobContainers_CreateOrUpdateImmutabilityPolicy.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "BlobContainers_SetLegalHold": {
+            "main": "./lib/actions/BlobContainers_SetLegalHold.js",
+            "title": "Sets legal hold tags. Setting the same tag results in an idempotent operation. SetLegalHold follows an append pattern and does not clear out the existing tags that are not specified in the request.",
+            "description": "Sets legal hold tags. Setting the same tag results in an idempotent operation. SetLegalHold follows an append pattern and does not clear out the existing tags that are not specified in the request.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/BlobContainers_SetLegalHold.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "BlobServices_GetServiceProperties": {
+            "main": "./lib/actions/BlobServices_GetServiceProperties.js",
+            "title": "Gets the properties of a storage account's Blob service, including properties for Storage Analytics and CORS (Cross-Origin Resource Sharing) rules.",
+            "description": "Gets the properties of a storage account's Blob service, including properties for Storage Analytics and CORS (Cross-Origin Resource Sharing) rules.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/BlobServices_GetServiceProperties.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "BlobServices_SetServiceProperties": {
+            "main": "./lib/actions/BlobServices_SetServiceProperties.js",
+            "title": "Sets the properties of a storage account's Blob service, including properties for Storage Analytics and CORS (Cross-Origin Resource Sharing) rules. ",
+            "description": "Sets the properties of a storage account's Blob service, including properties for Storage Analytics and CORS (Cross-Origin Resource Sharing) rules. ",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/BlobServices_SetServiceProperties.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}

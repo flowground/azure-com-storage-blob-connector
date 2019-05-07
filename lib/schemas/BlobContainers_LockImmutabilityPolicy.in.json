@@ -1,0 +1,38 @@
+{
+    "type": "object",
+    "properties": {
+        "resourceGroupName": {
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 90,
+            "pattern": "^[-\\w\\._\\(\\)]+$"
+        },
+        "accountName": {
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 24
+        },
+        "containerName": {
+            "required": true,
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 63
+        },
+        "subscriptionId": {
+            "required": true,
+            "type": "string",
+            "minLength": 1
+        },
+        "api_version": {
+            "required": true,
+            "type": "string",
+            "minLength": 1
+        },
+        "If_Match": {
+            "required": true,
+            "type": "string"
+        }
+    }
+}
